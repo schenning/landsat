@@ -1,0 +1,5 @@
+cropsize=`identify -quiet *_B8.TIF | cut -d ' ' -f 4`
+
+convert -limit memory 1000MB -quiet *_B6.TIF *_B5.TIF *_B4.TIF -channel RGB -combine  -filter Point  -resize 200% -crop $cropsize -colorspace HSL -separate separate_HSL_%d.png
+
+convert -limit memory 1000MB -quiet separate_HSL_0.png separate_HSL_1.png *_B8.TIF -set colorspace HSL -combine -colorspace RGB out-nat-15.png
